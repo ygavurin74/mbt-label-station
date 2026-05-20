@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Colint Label Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    .label-font {
+      font-family: 'Verdana', 'Geneva', sans-serif !important;
+      font-weight: 700 !important;
+      color: black !important;
+      text-shadow: 0 0 0.1px rgba(0,0,0,0.5);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .image-rendering-pixelated {
+      image-rendering: pixelated;
+    }
+
+    .label-sheet-container {
+      background: #cbd5e1;
+      padding: 40px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      min-height: 100vh;
+    }
+
+    /*
+      Tanex TW-2115: 70mm × 56mm physical sticker, loaded LANDSCAPE into printer.
+      On landscape A4 (297mm × 210mm) the labels sit as 56mm wide × 70mm tall.
+        Columns: 5 × 56mm = 280mm  →  side margins = (297 - 280) / 2 = 8.5mm each
+        Rows:    3 × 70mm = 210mm  →  no top/bottom margin needed
+      Label content is 50mm × 65mm, centred inside each 56mm × 70mm cell.
+
+      If labels drift left/right on your printer, adjust the two padding values below
+      by equal and opposite amounts (e.g. 9mm left / 8mm right).
+    */
+    .a4-page {
+      background: white;
+      width: 297mm;
+      height: 210mm;
+      padding:0 8.5mm;          /* left and right side margins */
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+      display: grid;
+      grid-template-columns: repeat(5, 56mm);
+      grid-template-rows: repeat(3, 70mm);
+      gap: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+
+      body, html {
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+      }
+
+      .label-sheet-container {
+        padding: 0 !important;
+        background: white !important;
+        display: block !important;
+      }
+
+      /*
+        margin: 0 tells the browser not to add its own margins.
+        If your printer has a hardware minimum margin and labels still drift,
+        compensate by adjusting the padding values in .a4-page above.
+      */
+      @page {
+        margin: 0;
+        size: A4 landscape;
+      }
+
+      .a4-page {
+        box-shadow: none !important;
+        margin: 0 !important;
+        page-break-after: always;
+        break-after: page;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #4f46e5;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "xlsx": "https://esm.sh/xlsx@0.18.5"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gray-50">
+  <div id="root"></div>
+<script type="module" src="/src/index.tsx"></script>
+</body>
+</html>
