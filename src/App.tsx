@@ -29,7 +29,7 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
                  position: 'relative', overflow: 'visible' }}
       >
         {/* All content padded, fields stop before barcode zone */}
-        <div style={{ position: 'absolute', top: '2mm', left: '2mm', right: '2mm', bottom: '20mm' }}>
+        <div style={{ position: 'absolute', top: '2mm', left: '2mm', right: '2mm', bottom: '22mm' }}>
           {/* Header */}
           <div style={{ borderBottom: '1px solid black', marginBottom: '1mm', paddingBottom: '0.5mm' }}
                className="flex items-baseline justify-between">
@@ -88,10 +88,10 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
 
         {/* Barcode — absolutely pinned, raised enough to keep tracking text clear of edge */}
         <div style={{ position: 'absolute', bottom: '4mm', left: '2mm', right: '2mm',
-                      height: '14mm', borderTop: '1px solid #e5e7eb',
+                      height: '18mm', borderTop: '1px solid #e5e7eb',
                       display: 'flex', flexDirection: 'column',
                       alignItems: 'center', justifyContent: 'center', gap: '0.5mm' }}>
-          <div style={{ width: '9mm', height: '9mm' }}>
+          <div style={{ width: '14mm', height: '14mm' }}>
             <DatamatrixBarcode
               text={barcodeString}
               className="w-full h-full object-contain image-rendering-pixelated"
