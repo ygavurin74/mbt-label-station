@@ -68,7 +68,7 @@ export const buildBarcodeString = (data: LabelData): string => {
       write(pos1, len, '0'.repeat(len));
     } else {
       const s = trimmed.substring(0, len);
-      write(pos1, len, s.padStart(len, ' '));
+      write(pos1, len, s.padStart(len, '0'));
     }
   };
 
