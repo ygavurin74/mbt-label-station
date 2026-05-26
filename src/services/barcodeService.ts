@@ -62,13 +62,12 @@ export const buildBarcodeString = (data: LabelData): string => {
    * When empty or sentinel '0': fill entire field with '0'.
    * When has real value: right-align within field width.
    */
-  const rightAlignOrZero = (pos1: number, len: number, value: string) => {
+const leftAlignOrZero = (pos1: number, len: number, value: string) => {
     const trimmed = value.trim();
-    if (!trimmed || trimmed === '0') {
+    if (!trimmed) {
       write(pos1, len, '0'.repeat(len));
     } else {
-      const s = trimmed.substring(0, len);
-      write(pos1, len, s.padStart(len, '0'));
+      write(pos1, len, trimmed.substring(0, len).padEnd(len, ' '));
     }
   };
 
@@ -96,8 +95,8 @@ export const buildBarcodeString = (data: LabelData): string => {
   zeroPad(18, 4, data.numerator);
 
   // Right-aligned fields with zero-fill default
-  rightAlignOrZero(46, 12, data.batch);
-  rightAlignOrZero(58, 18, data.sn);
+leftAlignOrZero(46, 12, data.batch);
+leftAlignOrZero(58, 18, data.sn);
 
   // Mandatory date code (exactly 4 chars)
   write(76, 4, data.dateCode);
