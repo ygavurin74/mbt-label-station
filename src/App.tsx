@@ -9,7 +9,7 @@ import ExcelImport from './components/ExcelImport';
 import { buildBarcodeString, validateLabelData } from './services/barcodeService';
 import { DatamatrixBarcode } from './components/DatamatrixBarcode';
 
-const LABELS_PER_PAGE = 15 ;
+const LABELS_PER_PAGE = 15;
 const STORAGE_KEY = 'colint_label_station_data_v4';
 
 const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
@@ -23,7 +23,6 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
   const labelTextClass = "label-font text-[9px] leading-tight text-black break-all";
   const headerTextClass = "label-font text-[10px] uppercase tracking-tighter text-black";
   const fieldLabelClass = "label-font underline min-w-[1.8rem] text-[8px] text-black shrink-0";
-  }
 
   return (
     // Grid cell is 56mm × 70mm; label content is 50mm × 65mm, centred inside
