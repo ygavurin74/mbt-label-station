@@ -21,7 +21,7 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
 
   if (data.isDummy) {
     return (
-      <div style={{ width: '56mm', height: '70mm' }}></div>
+      <div style={{ width: '56mm', height: '66.7mm' }}></div>
     );
   }
 
