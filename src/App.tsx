@@ -13,16 +13,18 @@ const LABELS_PER_PAGE = 15;
 const STORAGE_KEY = 'colint_label_station_data_v4';
 
 const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
-  if (data.isDummy) {
-    return <div style={{ width: '56mm', height: '70mm' }} />;
-  }
-
-  const barcodeString = buildBarcodeString(data);
-  const trackingCode = `${data.fixedChars}${data.po}-${data.rowNum}/${data.numerator}`;
+  const barcodeString = data.isDummy ? '' : buildBarcodeString(data);
+  const trackingCode = data.isDummy ? '' : `${data.fixedChars}${data.po}-${data.rowNum}/${data.numerator}`;
 
   const labelTextClass = "label-font text-[9px] leading-tight text-black break-all";
   const headerTextClass = "label-font text-[10px] uppercase tracking-tighter text-black";
   const fieldLabelClass = "label-font underline min-w-[1.8rem] text-[8px] text-black shrink-0";
+
+  if (data.isDummy) {
+    return (
+      <div style={{ width: '56mm', height: '70mm' }}></div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center w-full h-full">
