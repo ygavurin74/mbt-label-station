@@ -9,7 +9,7 @@ import ExcelImport from './components/ExcelImport';
 import { buildBarcodeString, validateLabelData } from './services/barcodeService';
 import { DatamatrixBarcode } from './components/DatamatrixBarcode';
 
-const LABELS_PER_PAGE = 15;
+const LABELS_PER_PAGE = 15 ;
 const STORAGE_KEY = 'colint_label_station_data_v4';
 
 const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
