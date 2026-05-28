@@ -26,7 +26,7 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
   }
 
   return (
-    <div style={{ width: '56mm', height: '66.67mm', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className="flex items-center justify-center w-full h-full">
       <div
         className="bg-white border border-black"
         style={{ width: '50mm', height: '65mm', boxSizing: 'border-box',
