@@ -36,3 +36,10 @@ export const INITIAL_LABEL_DATA = {
   rowNum:     '00010',  // aligned with Python app
   numerator:  '1',
 };
+
+export const DUMMY_LABEL_DATA = {
+  pn: '', cat: '', sub: '', qtyReq: '', qtySup: '',
+  dateCode: '0000', kit: '', po: '', batch: '', sn: '',
+  fixedChars: '', rowNum: '', numerator: '',
+  isDummy: true,
+};
