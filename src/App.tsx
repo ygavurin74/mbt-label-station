@@ -112,13 +112,19 @@ if (data.isDummy) {
   );
 };
 
-const A4Page: React.FC<{ labels: LabelData[] }> = ({ labels }) => (
-  <div className="a4-page">
-    {labels.map((lbl, idx) => (
-      <LabelPrintContent key={idx} data={lbl} />
-    ))}
-  </div>
-);
+const A4Page: React.FC<{ labels: LabelData[] }> = ({ labels }) => {
+  const padded = [...labels];
+  while (padded.length < LABELS_PER_PAGE) {
+    padded.push({ ...DUMMY_LABEL_DATA });
+  }
+  return (
+    <div className="a4-page">
+      {padded.map((lbl, idx) => (
+        <LabelPrintContent key={idx} data={lbl} />
+      ))}
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   const [labels, setLabels] = useState<LabelData[]>(() => {
