@@ -24,8 +24,7 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
   const headerTextClass = "label-font text-[10px] uppercase tracking-tighter text-black";
   const fieldLabelClass = "label-font underline min-w-[1.8rem] text-[8px] text-black shrink-0";
 
-  return ( 
-    // Grid cell is 56mm × 70mm; label content is 50mm × 65mm, centred inside
+  return (
     <div className="flex items-center justify-center w-full h-full">
       <div
         className="bg-white border border-black"
@@ -90,7 +89,7 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
           </div>
         </div>
 
-        {/* Barcode — absolutely pinned, raised enough to keep tracking text clear of edge */}
+        {/* Barcode - absolutely pinned, raised enough to keep tracking text clear of edge */}
         <div style={{ position: 'absolute', bottom: '4mm', left: '2mm', right: '2mm',
                       height: '18mm', borderTop: '1px solid #e5e7eb',
                       display: 'flex', flexDirection: 'column',
@@ -205,7 +204,7 @@ const App: React.FC = () => {
   }, []);
 
   /**
-   * PDF Export using browser native print — preserves CSS mm values exactly.
+   * PDF Export using browser native print - preserves CSS mm values exactly.
    * User selects "Save as PDF" in the print dialog.
    */
   const handleExportPdf = async () => {
@@ -315,7 +314,7 @@ const App: React.FC = () => {
                   <tbody className="divide-y divide-slate-100">
                     {labels.map((lbl, idx) => (
                       <tr key={idx} onClick={() => setActiveIndex(idx)} className={`cursor-pointer group transition-colors ${activeIndex === idx ? 'bg-indigo-50/50' : 'hover:bg-slate-50'}`}>
-                        <td className="px-6 py-4 font-semibold truncate max-w-[150px]" style={{color: lbl.isDummy ? '#94a3b8' : undefined}}>{lbl.isDummy ? '— Blank —' : (lbl.pn || 'Unset P/N')}</td>
+                        <td className="px-6 py-4 font-semibold truncate max-w-[150px]" style={{color: lbl.isDummy ? '#94a3b8' : undefined}}>{lbl.isDummy ? '- Blank -' : (lbl.pn || 'Unset P/N')}</td>
                         <td className="px-6 py-4 text-slate-400 text-xs truncate max-w-[100px] font-mono">{lbl.fixedChars}{lbl.po}-{lbl.rowNum}</td>
                         <td className="px-4 py-4 text-right flex items-center justify-end gap-2">
                           <button onClick={(e) => { e.stopPropagation(); handleDeleteLabel(idx); }} className="text-slate-400 hover:text-rose-600 p-2">
