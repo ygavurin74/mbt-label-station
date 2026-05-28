@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import jsPDF from 'jspdf';
 import { LabelData } from './types';
@@ -19,7 +20,7 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
   const headerTextClass = "label-font text-[10px] uppercase tracking-tighter text-black";
   const fieldLabelClass = "label-font underline min-w-[1.8rem] text-[8px] text-black shrink-0";
 
- if (data.isDummy) {
+  if (data.isDummy) {
     return <div style={{ width: '56mm', height: '70mm' }} />;
   }
 
