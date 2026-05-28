@@ -1,8 +1,7 @@
-
 import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import jsPDF from 'jspdf';
 import { LabelData } from './types';
-import { INITIAL_LABEL_DATA } from './constants';
+import { INITIAL_LABEL_DATA, DUMMY_LABEL_DATA } from './constants';
 import LabelForm from './components/LabelForm';
 import LabelPreview from './components/LabelPreview';
 import ExcelImport from './components/ExcelImport';
@@ -21,6 +20,11 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
   const fieldLabelClass = "label-font underline min-w-[1.8rem] text-[8px] text-black shrink-0";
 
   return (
+    // Dummy label — renders as empty transparent cell
+    if (data.isDummy) {
+      return <div style={{ width: '56mm', height: '70mm' }} />;
+    }
+
     // Grid cell is 56mm × 70mm; label content is 50mm × 65mm, centred inside
     <div className="flex items-center justify-center w-full h-full">
       <div
@@ -157,6 +161,12 @@ const App: React.FC = () => {
 
   const handleAddLabel = useCallback(() => {
     setLabels(prev => [...prev, { ...INITIAL_LABEL_DATA }]);
+    setActiveIndex(labels.length);
+    setViewMode('editor');
+  }, [labels.length]);
+
+  const handleAddDummy = useCallback(() => {
+    setLabels(prev => [...prev, { ...DUMMY_LABEL_DATA }]);
     setActiveIndex(labels.length);
     setViewMode('editor');
   }, [labels.length]);
@@ -298,13 +308,14 @@ const App: React.FC = () => {
               <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
                 <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Label Queue</h3>
                 <button onClick={handleAddLabel} className="px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded-md hover:bg-indigo-700">+ New Item</button>
+                <button onClick={handleAddDummy} className="px-3 py-1 bg-slate-400 text-white text-xs font-bold rounded-md hover:bg-slate-500">+ Blank</button>
               </div>
               <div className="overflow-y-auto flex-1">
                 <table className="w-full text-left text-sm border-separate border-spacing-0">
                   <tbody className="divide-y divide-slate-100">
                     {labels.map((lbl, idx) => (
                       <tr key={idx} onClick={() => setActiveIndex(idx)} className={`cursor-pointer group transition-colors ${activeIndex === idx ? 'bg-indigo-50/50' : 'hover:bg-slate-50'}`}>
-                        <td className="px-6 py-4 font-semibold text-slate-800 truncate max-w-[150px]">{lbl.pn || 'Unset P/N'}</td>
+                        <td className="px-6 py-4 font-semibold truncate max-w-[150px]" style={{color: lbl.isDummy ? '#94a3b8' : undefined}}>{lbl.isDummy ? '— Blank —' : (lbl.pn || 'Unset P/N')}</td>
                         <td className="px-6 py-4 text-slate-400 text-xs truncate max-w-[100px] font-mono">{lbl.fixedChars}{lbl.po}-{lbl.rowNum}</td>
                         <td className="px-4 py-4 text-right flex items-center justify-end gap-2">
                           <button onClick={(e) => { e.stopPropagation(); handleDeleteLabel(idx); }} className="text-slate-400 hover:text-rose-600 p-2">
@@ -317,7 +328,7 @@ const App: React.FC = () => {
                 </table>
               </div>
             </div>
-            <LabelForm data={currentLabel} onChange={handleUpdateLabel} />
+            {!currentLabel.isDummy && <LabelForm data={currentLabel} onChange={handleUpdateLabel} />}
           </section>
 
           <section className="lg:col-span-4">
