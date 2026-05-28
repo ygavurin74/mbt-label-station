@@ -19,12 +19,11 @@ const LabelPrintContent: React.FC<{ data: LabelData }> = ({ data }) => {
   const headerTextClass = "label-font text-[10px] uppercase tracking-tighter text-black";
   const fieldLabelClass = "label-font underline min-w-[1.8rem] text-[8px] text-black shrink-0";
 
-  return (
-    // Dummy label — renders as empty transparent cell
-    if (data.isDummy) {
-      return <div style={{ width: '56mm', height: '70mm' }} />;
-    }
+ if (data.isDummy) {
+    return <div style={{ width: '56mm', height: '70mm' }} />;
+  }
 
+  return (
     // Grid cell is 56mm × 70mm; label content is 50mm × 65mm, centred inside
     <div className="flex items-center justify-center w-full h-full">
       <div
