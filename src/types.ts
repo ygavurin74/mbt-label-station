@@ -13,6 +13,7 @@ export interface LabelData {
   fixedChars: string;
   rowNum: string;
   numerator: string;
+  isDummy?: boolean;
 }
 
 export interface BarcodeField {
